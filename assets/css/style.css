@@ -20,6 +20,15 @@
   --text: #f0ece8;
   --text-muted: #9a9096;
   --border: #2a2a2a;
+  --shadow: rgba(0, 0, 0, 0.4);
+}
+
+@font-face {
+  font-family: "Buongiorno Rastellino";
+  src: url("../fonts/Buongiorno%20Rastellino.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 *,
