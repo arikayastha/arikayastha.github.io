@@ -499,4 +499,14 @@
       applyTheme(current === "dark" ? "light" : "dark");
     });
   });
+
+  /* Scrollbar visibility on scroll */
+  let scrollTimeout;
+  window.addEventListener("scroll", function () {
+    document.documentElement.classList.add("is-scrolling");
+    window.clearTimeout(scrollTimeout);
+    scrollTimeout = window.setTimeout(function () {
+      document.documentElement.classList.remove("is-scrolling");
+    }, 1000);
+  }, false);
 })();

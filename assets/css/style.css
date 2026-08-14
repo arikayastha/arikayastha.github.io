@@ -48,12 +48,26 @@ html {
   background-color: var(--bg);
   min-height: 100%;
   scrollbar-width: thin;
-  scrollbar-color: rgba(76, 17, 48, 0.28) transparent;
+  scrollbar-color: rgba(76, 17, 48, 0.08) transparent;
   transition: background-color var(--theme-duration) var(--theme-easing);
 }
 
+html.is-scrolling {
+  scrollbar-color: rgba(76, 17, 48, 0.38) transparent;
+}
+
+[data-theme="dark"] html,
+[data-theme="dark"] {
+  scrollbar-color: rgba(150, 109, 120, 0.15) transparent;
+}
+
+[data-theme="dark"] html.is-scrolling,
+[data-theme="dark"].is-scrolling {
+  scrollbar-color: rgba(150, 109, 120, 0.5) transparent;
+}
+
 html::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 html::-webkit-scrollbar-track {
@@ -61,25 +75,54 @@ html::-webkit-scrollbar-track {
 }
 
 html::-webkit-scrollbar-thumb {
-  background: rgba(76, 17, 48, 0.25);
+  background: rgba(76, 17, 48, 0.08);
   border-radius: 999px;
-  border: 2px solid transparent;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.2s;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+html::-webkit-scrollbar-thumb:active,
+html.is-scrolling::-webkit-scrollbar-thumb {
+  background: rgba(76, 17, 48, 0.38);
+  border: 3px solid transparent;
   background-clip: padding-box;
 }
 
-html::-webkit-scrollbar-thumb:hover {
-  background: rgba(76, 17, 48, 0.38);
-  border: 2px solid transparent;
+[data-theme="dark"] html::-webkit-scrollbar-thumb {
+  background: rgba(150, 109, 120, 0.15);
+}
+
+[data-theme="dark"] html::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] html::-webkit-scrollbar-thumb:active,
+[data-theme="dark"] html.is-scrolling::-webkit-scrollbar-thumb {
+  background: rgba(150, 109, 120, 0.5);
+  border: 3px solid transparent;
   background-clip: padding-box;
 }
 
 body {
   scrollbar-width: thin;
-  scrollbar-color: rgba(76, 17, 48, 0.28) transparent;
+  scrollbar-color: rgba(76, 17, 48, 0.08) transparent;
+}
+
+body.is-scrolling,
+html.is-scrolling body {
+  scrollbar-color: rgba(76, 17, 48, 0.38) transparent;
+}
+
+[data-theme="dark"] body {
+  scrollbar-color: rgba(150, 109, 120, 0.15) transparent;
+}
+
+[data-theme="dark"] body.is-scrolling,
+[data-theme="dark"] html.is-scrolling body {
+  scrollbar-color: rgba(150, 109, 120, 0.5) transparent;
 }
 
 body::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 body::-webkit-scrollbar-track {
@@ -87,15 +130,30 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: rgba(76, 17, 48, 0.25);
+  background: rgba(76, 17, 48, 0.08);
   border-radius: 999px;
-  border: 2px solid transparent;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.2s;
+}
+
+body::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:active,
+html.is-scrolling body::-webkit-scrollbar-thumb {
+  background: rgba(76, 17, 48, 0.38);
+  border: 3px solid transparent;
   background-clip: padding-box;
 }
 
-body::-webkit-scrollbar-thumb:hover {
-  background: rgba(76, 17, 48, 0.38);
-  border: 2px solid transparent;
+[data-theme="dark"] body::-webkit-scrollbar-thumb {
+  background: rgba(150, 109, 120, 0.15);
+}
+
+[data-theme="dark"] body::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] body::-webkit-scrollbar-thumb:active,
+[data-theme="dark"] html.is-scrolling body::-webkit-scrollbar-thumb {
+  background: rgba(150, 109, 120, 0.5);
+  border: 3px solid transparent;
   background-clip: padding-box;
 }
 
