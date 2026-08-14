@@ -489,7 +489,6 @@ body.view-home .page-view.is-fading {
 }
 
 [data-theme="dark"] .view-home .site-list-item::before {
-  background-image: none;
   background: var(--accent);
 }
 
