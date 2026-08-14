@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ambashri Purkayastha — researcher and academic profile.">
+  <title>Ambashri Purkayastha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="view-home">
+  <main class="app">
+    <h1 class="site-title site-title--hero" id="site-title" tabindex="0">Ambashri Purkayastha</h1>
+
+    <div class="app-shell" id="landing-stage">
+      <aside class="app-sidebar">
+        <button class="sidebar-logo" id="sidebar-logo" type="button" aria-label="Back to home">
+          <img class="sidebar-logo-img sidebar-logo-img--light" src="pictures/sideLogo-light.png" alt="Ambashri Purkayastha">
+          <img class="sidebar-logo-img sidebar-logo-img--dark" src="pictures/sideLogo-dark.png" alt="">
+        </button>
+        <div class="sidebar-nav">
+          <nav class="site-list" aria-label="Site pages">
+            <a href="#publications" class="site-list-item" data-zone="publications" data-page="publications">publications.</a>
+            <a href="#research" class="site-list-item" data-zone="research" data-page="research">my research.</a>
+            <a href="#about" class="site-list-item" data-zone="about" data-page="about">about me.</a>
+          </nav>
+          <button class="theme-toggle" aria-label="Toggle day/night mode">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+        </div>
+      </aside>
+
+      <div class="app-main">
+        <div class="landing-view" id="landing-view">
+          <div class="figure-nav" id="figure-nav" role="navigation" aria-label="Illustration navigation">
+            <div class="figure-display">
+              <img id="figure-base" class="figure-img figure-base" src="pictures/main-light.png" alt="">
+              <img id="figure-overlay-a" class="figure-img figure-overlay" src="" alt="Illustration — hover regions to explore">
+              <img id="figure-overlay-b" class="figure-img figure-overlay" src="" alt="" aria-hidden="true">
+            </div>
+            <div class="figure-zones">
+              <a class="figure-zone" href="#publications" data-zone="publications" data-page="publications"
+                 data-img-light="pictures/publication-light.png" data-img-dark="pictures/publication-dark.png"
+                 aria-label="Publications"></a>
+              <a class="figure-zone" href="#research" data-zone="research" data-page="research"
+                 data-img-light="pictures/Research-light.png" data-img-dark="pictures/Research-dark.png"
+                 aria-label="Research"></a>
+              <a class="figure-zone" href="#about" data-zone="about" data-page="about"
+                 data-img-light="pictures/aboutMe-light.png" data-img-dark="pictures/aboutMe-dark.png"
+                 aria-label="About me"></a>
+            </div>
+          </div>
+        </div>
+
+        <article class="page-view page" id="page-view" aria-hidden="true"></article>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

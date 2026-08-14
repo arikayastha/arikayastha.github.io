@@ -1,3 +1,7 @@
-theme: jekyll-theme-hydejack
-title: Ambashri's homepage
-description: Bookmark this to keep an eye on my project updates!
+title: Ambashri Purkayastha
+description: Academic profile — research, publications, and about
+url: "https://arikayastha.github.io"
+
+exclude:
+  - README.md
+  - LICENSE
