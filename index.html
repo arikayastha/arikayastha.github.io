@@ -12,19 +12,25 @@
 </head>
 <body class="view-home">
   <main class="app">
-    <h1 class="site-title site-title--hero" id="site-title" tabindex="0">Ambashri Purkayastha</h1>
+    <a href="#about" class="site-header site-header--hero" id="site-header" data-page="about" data-zone="about" aria-label="About me">
+      <img class="site-header-img site-header-img--light" src="pictures/header-light.svg" alt="Ambashri Purkayastha">
+      <img class="site-header-img site-header-img--dark" src="pictures/header-dark.svg" alt="">
+      <img class="site-header-img site-header-img--light site-header-img--highlight" src="pictures/header-light-highlight.svg" alt="">
+      <img class="site-header-img site-header-img--dark site-header-img--highlight" src="pictures/header-dark-highlight.svg" alt="">
+    </a>
 
     <div class="app-shell" id="landing-stage">
       <aside class="app-sidebar">
         <button class="sidebar-logo" id="sidebar-logo" type="button" aria-label="Back to home">
-          <img class="sidebar-logo-img sidebar-logo-img--light" src="pictures/sideLogo-light.png" alt="Ambashri Purkayastha">
-          <img class="sidebar-logo-img sidebar-logo-img--dark" src="pictures/sideLogo-dark.png" alt="">
+          <img class="sidebar-logo-img sidebar-logo-img--light" src="pictures/sideLogo-light.svg" alt="Ambashri Purkayastha">
+          <img class="sidebar-logo-img sidebar-logo-img--dark" src="pictures/sideLogo-dark.svg" alt="">
         </button>
         <div class="sidebar-nav">
           <nav class="site-list" aria-label="Site pages">
-            <a href="#publications" class="site-list-item" data-zone="publications" data-page="publications">publications.</a>
-            <a href="#research" class="site-list-item" data-zone="research" data-page="research">my research.</a>
             <a href="#about" class="site-list-item" data-zone="about" data-page="about">about me.</a>
+            <a href="#research" class="site-list-item" data-zone="research" data-page="research">my research.</a>
+            <a href="#publications" class="site-list-item" data-zone="publications" data-page="publications">publications.</a>
+            <a href="#resources" class="site-list-item" data-zone="resources" data-page="resources">resources.</a>
           </nav>
           <button class="theme-toggle" aria-label="Toggle day/night mode">
             <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -41,21 +47,22 @@
         <div class="landing-view" id="landing-view">
           <div class="figure-nav" id="figure-nav" role="navigation" aria-label="Illustration navigation">
             <div class="figure-display">
-              <img id="figure-base" class="figure-img figure-base" src="pictures/main-light.png" alt="">
+              <img id="figure-base" class="figure-img" src="pictures/main-light.svg" alt="">
               <img id="figure-overlay-a" class="figure-img figure-overlay" src="" alt="Illustration — hover regions to explore">
               <img id="figure-overlay-b" class="figure-img figure-overlay" src="" alt="" aria-hidden="true">
+              <div class="figure-zones">
+                <a class="figure-zone" href="#publications" data-zone="publications" data-page="publications"
+                   data-img-light="pictures/publication-light.svg" data-img-dark="pictures/publication-dark.svg"
+                   aria-label="Publications"></a>
+                <a class="figure-zone" href="#research" data-zone="research" data-page="research"
+                   data-img-light="pictures/Research-light.svg" data-img-dark="pictures/Research-dark.svg"
+                   aria-label="Research"></a>
+                <a class="figure-zone" href="#resources" data-zone="resources" data-page="resources"
+                   data-img-light="pictures/resource-light.svg" data-img-dark="pictures/resource-dark.svg"
+                   aria-label="Resources"></a>
+              </div>
             </div>
-            <div class="figure-zones">
-              <a class="figure-zone" href="#publications" data-zone="publications" data-page="publications"
-                 data-img-light="pictures/publication-light.png" data-img-dark="pictures/publication-dark.png"
-                 aria-label="Publications"></a>
-              <a class="figure-zone" href="#research" data-zone="research" data-page="research"
-                 data-img-light="pictures/Research-light.png" data-img-dark="pictures/Research-dark.png"
-                 aria-label="Research"></a>
-              <a class="figure-zone" href="#about" data-zone="about" data-page="about"
-                 data-img-light="pictures/aboutMe-light.png" data-img-dark="pictures/aboutMe-dark.png"
-                 aria-label="About me"></a>
-            </div>
+            <p class="figure-tagline">I study light, & how it moves to matter and space.</p>
           </div>
         </div>
 
