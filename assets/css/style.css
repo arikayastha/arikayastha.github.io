@@ -1,3 +1,6 @@
+/* ============================================
+   ROOT CSS VARIABLES & THEMING
+   ============================================ */
 :root {
   --accent: #4c1130;
   --accent-light: #7a1a4c;
@@ -15,6 +18,9 @@
   --site-bg-images: 0;
 }
 
+/* ============================================
+   DARK THEME COLOR OVERRIDES
+   ============================================ */
 [data-theme="dark"] {
   --accent: #966d78;
   --accent-light: #b8959f;
@@ -24,6 +30,10 @@
   --text-muted: #9a9096;
   --border: #2a2a2a;
 }
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
 
 *,
 *::before,
@@ -130,6 +140,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ============================================
+   LINKS & TEXT
+   ============================================ */
 a {
   color: var(--accent);
   text-decoration: none;
@@ -140,7 +153,9 @@ a:hover {
   color: var(--accent-light);
 }
 
-/* --- Theme toggle --- */
+/* ============================================
+   THEME TOGGLE BUTTON
+   ============================================ */
 .theme-toggle {
   display: flex;
   align-items: center;
@@ -191,7 +206,9 @@ a:hover {
   transform: translateX(calc((1rem + 2px) / 2));
 }
 
-/* --- App layout --- */
+/* ============================================
+   APP LAYOUT & MAIN CONTAINER
+   ============================================ */
 .app {
   display: flex;
   flex-direction: column;
@@ -201,6 +218,10 @@ a:hover {
   min-height: 100vh;
   padding: 2.25rem 3vw 2rem;
 }
+
+/* ============================================
+   SITE HEADER (HERO IMAGE)
+   ============================================ */
 
 .site-header--hero {
   position: absolute;
@@ -274,6 +295,9 @@ a:hover {
               visibility 0s linear var(--page-transition-duration);
 }
 
+/* ============================================
+   APP SHELL & SIDEBAR CONTAINER
+   ============================================ */
 .app-shell {
   display: flex;
   align-items: flex-start;
@@ -292,6 +316,10 @@ a:hover {
   align-self: center;
   transform: translateY(calc(-1 * clamp(2.25rem, 5.5vw, 4rem)));
 }
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
 
 .app-sidebar {
   position: relative;
@@ -357,6 +385,9 @@ a:hover {
   align-items: start;
 }
 
+/* ============================================
+   LANDING PAGE & INNER PAGE VIEWS
+   ============================================ */
 .landing-view,
 .page-view {
   grid-area: 1 / 1;
@@ -397,6 +428,10 @@ body.view-home .page-view.is-fading {
   position: relative;
 }
 
+/* ============================================
+   PAGE VIEW POSITIONING & ANIMATION
+   ============================================ */
+
 .view-page .page-view,
 .page-view.is-fading {
   position: absolute;
@@ -418,6 +453,9 @@ body.view-home .page-view.is-fading {
   pointer-events: none;
 }
 
+/* ============================================
+   NAVIGATION - SIDEBAR LIST
+   ============================================ */
 .site-list {
   display: flex;
   flex-direction: column;
@@ -447,6 +485,10 @@ body.view-home .page-view.is-fading {
   color: var(--accent);
   opacity: 1;
 }
+
+/* ============================================
+   NAVIGATION - ACTIVE STATE & HIGHLIGHTS
+   ============================================ */
 
 .site-list-item.is-active {
   border-left-color: transparent;
@@ -500,6 +542,9 @@ body.view-home .page-view.is-fading {
   color: #ffffff;
 }
 
+/* ============================================
+   LANDING PAGE - FIGURE & ILLUSTRATIONS
+   ============================================ */
 .figure-nav {
   position: relative;
   width: 100%;
@@ -542,6 +587,10 @@ body.view-home .page-view.is-fading {
   opacity: 1;
 }
 
+/* ============================================
+   LANDING PAGE - FIGURE ZONES (CLICKABLE AREAS)
+   ============================================ */
+
 .figure-zones {
   position: absolute;
   inset: 0;
@@ -559,7 +608,9 @@ body.view-home .page-view.is-fading {
   outline-offset: -2px;
 }
 
-/* --- Page layout --- */
+/* ============================================
+   ARTICLE CONTENT - TYPOGRAPHY & SPACING
+   ============================================ */
 .page {
   padding: 0;
   max-width: none;
@@ -620,6 +671,9 @@ body.view-home .page-view.is-fading {
   border-bottom: none;
 }
 
+/* ============================================
+   ARTICLE CONTENT - ABOUT PAGE SPECIFIC
+   ============================================ */
 .about-intro {
   margin-bottom: 1.5rem;
 }
@@ -638,6 +692,9 @@ body.view-home .page-view.is-fading {
   display: block;
 }
 
+/* ============================================
+   ARTICLE CONTENT - SOCIAL LINKS & BUTTONS
+   ============================================ */
 .about-links {
   display: flex;
   flex-wrap: wrap;
@@ -719,7 +776,9 @@ body.view-home .page-view.is-fading {
   opacity: 1;
 }
 
-/* --- Publications & research lists --- */
+/* ============================================
+   ARTICLE CONTENT - LISTS & ENTRIES
+   ============================================ */
 .entry-list {
   list-style: none;
 }
@@ -738,6 +797,9 @@ body.view-home .page-view.is-fading {
   margin-bottom: 0;
 }
 
+/* ============================================
+   ACCESSIBILITY - REDUCED MOTION
+   ============================================ */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --theme-duration: 0.01ms;
@@ -745,6 +807,9 @@ body.view-home .page-view.is-fading {
   }
 }
 
+/* ============================================
+   RESPONSIVE DESIGN - TABLET & MOBILE
+   ============================================ */
 /* --- Mobile --- */
 @media (max-width: 768px) {
   .app {
