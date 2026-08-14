@@ -37,7 +37,56 @@ html {
   scroll-behavior: smooth;
   background-color: var(--bg);
   min-height: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(76, 17, 48, 0.28) transparent;
   transition: background-color var(--theme-duration) var(--theme-easing);
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: rgba(76, 17, 48, 0.25);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: rgba(76, 17, 48, 0.38);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(76, 17, 48, 0.28) transparent;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgba(76, 17, 48, 0.25);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: rgba(76, 17, 48, 0.38);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 html::before,
@@ -320,6 +369,15 @@ a:hover {
   pointer-events: auto;
 }
 
+body.view-home .page-view,
+body.view-home .page-view.is-fading {
+  display: none;
+  max-height: 0;
+  overflow: hidden;
+  padding-right: 0;
+  transform: none;
+}
+
 .page-view {
   opacity: 0;
   pointer-events: none;
@@ -347,7 +405,7 @@ a:hover {
   right: 0;
   z-index: 1;
   max-height: calc(100vh - 8rem);
-  transform: translateY(calc(-1 * clamp(6rem, 14vw, 9.5rem)));
+  transform: translateY(calc(-1 * clamp(5.5rem, 9.8vw, 7.5rem)));
 }
 
 .view-page .page-view {
@@ -392,8 +450,12 @@ a:hover {
 
 .site-list-item.is-active {
   border-left-color: transparent;
-  color: #000000;
+  color: var(--accent);
   opacity: 1;
+}
+
+.view-page .site-list-item.is-active {
+  color: #000000;
 }
 
 .site-list-item::before {
@@ -414,6 +476,10 @@ a:hover {
   transition: opacity var(--page-transition-duration) var(--theme-easing);
 }
 
+.view-home .site-list-item::before {
+  display: none;
+}
+
 .site-list-item.is-active::before {
   opacity: 1;
 }
@@ -422,7 +488,16 @@ a:hover {
   background-image: url("../../pictures/tab-dark.svg");
 }
 
+[data-theme="dark"] .view-home .site-list-item::before {
+  background-image: none;
+  background: var(--accent);
+}
+
 [data-theme="dark"] .site-list-item.is-active {
+  color: var(--accent);
+}
+
+[data-theme="dark"] .view-page .site-list-item.is-active {
   color: #ffffff;
 }
 
@@ -752,11 +827,11 @@ a:hover {
     border-bottom-color: transparent;
   }
 
-  .site-list-item::before {
-    z-index: -1;
-    left: -0.95rem;
-    right: -0.55rem;
-    height: 190%;
+  .view-home .site-list-item::before {
+    left: 0.35rem;
+    right: 0.35rem;
+    bottom: 0.1rem;
+    height: 2px;
   }
 
   .sidebar-nav .theme-toggle {
