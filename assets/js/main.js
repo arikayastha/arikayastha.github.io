@@ -2,6 +2,8 @@
   const storageKey = "theme";
   const root = document.documentElement;
 
+  const ENABLE_BG_IMAGES = false;
+
   const mainImages = {
     light: "pictures/main-light.svg",
     dark: "pictures/main-dark.svg",
@@ -121,6 +123,10 @@
       "pictures/tab-light.svg",
       "pictures/tab-dark.svg",
     ]);
+    if (ENABLE_BG_IMAGES) {
+      urls.add("pictures/background-light.svg");
+      urls.add("pictures/background-dark.svg");
+    }
     document.querySelectorAll(".figure-zone").forEach(function (el) {
       urls.add(el.getAttribute("data-img-light"));
       urls.add(el.getAttribute("data-img-dark"));
@@ -128,9 +134,12 @@
     urls.forEach(function (url) {
       if (!url) return;
       const img = new Image();
+      img.decoding = "async";
       img.src = url;
     });
   }
+
+  preloadImages();
 
   function hideOverlays() {
     overlays.forEach(function (el) {
@@ -250,12 +259,12 @@
     setPageViewAccessibility(false);
     document.title = "Ambashri Purkayastha";
 
-    if (pageView) {
-      pageView.classList.remove("is-fading");
-    }
-
     if (!instant) {
       await wait(PAGE_TRANSITION_MS / 2);
+    }
+
+    if (pageView) {
+      pageView.classList.remove("is-fading");
     }
 
     if (!skipHistory) {
@@ -386,8 +395,6 @@
   }
 
   function initFigureNav() {
-    preloadImages();
-
     const landingStage = document.getElementById("landing-stage");
     overlays = [
       document.getElementById("figure-overlay-a"),
