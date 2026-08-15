@@ -16,6 +16,17 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="view-home">
+  <div class="bg-corners" aria-hidden="true">
+    <div class="bg-corner bg-corner--left" tabindex="0">
+      <span class="bg-corner__base"></span>
+      <span class="bg-corner__hover"></span>
+    </div>
+    <div class="bg-corner bg-corner--right">
+      <span class="bg-corner__base"></span>
+      <span class="bg-corner__hover"></span>
+    </div>
+  </div>
+
   <main class="app">
     <a href="#about" class="site-header site-header--hero" id="site-header" data-page="about" data-zone="about" aria-label="About me">
       <img class="site-header-img site-header-img--light" src="pictures/header-light.svg" alt="Ambashri Purkayastha">
@@ -37,14 +48,21 @@
             <a href="#publications" class="site-list-item" data-zone="publications" data-page="publications">publications.</a>
             <a href="#resources" class="site-list-item" data-zone="resources" data-page="resources">resources.</a>
           </nav>
-          <button class="theme-toggle" aria-label="Toggle day/night mode">
-            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-            </svg>
-            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-          </button>
+          <div class="sidebar-controls">
+            <button class="theme-toggle" aria-label="Toggle day/night mode">
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+              </svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+            </button>
+            <button class="bg-toggle" type="button" aria-label="Turn on background images" aria-pressed="false">
+              <svg class="icon-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.5l2.63 6.87L21.5 12l-6.87 2.63L12 21.5l-2.63-6.87L2.5 12l6.87-2.63L12 2.5zm0 4.62l-1.1 2.86L8.04 11l2.86 1.1L12 15.04l1.1-2.94L15.96 11l-2.86-1.02L12 7.12z"/>
+              </svg>
+            </button>
+          </div>
         </div>
       </aside>
 

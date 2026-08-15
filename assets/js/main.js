@@ -1,8 +1,7 @@
 (function () {
   const storageKey = "theme";
+  const backgroundStorageKey = "bg-images";
   const root = document.documentElement;
-
-  const ENABLE_BG_IMAGES = false;
 
   const mainImages = {
     light: "pictures/main-light.svg",
@@ -122,11 +121,11 @@
       "pictures/header-dark-highlight.svg",
       "pictures/tab-light.svg",
       "pictures/tab-dark.svg",
+      "pictures/bg-right-corner-light.png",
+      "pictures/bg-right-corner-dark.png",
+      "pictures/bg-left-corner-light.png",
+      "pictures/bg-left-corner-dark.png",
     ]);
-    if (ENABLE_BG_IMAGES) {
-      urls.add("pictures/background-light.svg");
-      urls.add("pictures/background-dark.svg");
-    }
     document.querySelectorAll(".figure-zone").forEach(function (el) {
       urls.add(el.getAttribute("data-img-light"));
       urls.add(el.getAttribute("data-img-dark"));
@@ -489,7 +488,24 @@
     }, THEME_TRANSITION_MS);
   }
 
+  function getBackgroundImagesEnabled() {
+    const stored = localStorage.getItem(backgroundStorageKey);
+    return stored === "true";
+  }
+
+  function setBackgroundImagesEnabled(enabled) {
+    root.classList.toggle("bg-images-enabled", enabled);
+    localStorage.setItem(backgroundStorageKey, String(enabled));
+    document.querySelectorAll(".bg-toggle").forEach(function (btn) {
+      const active = root.classList.contains("bg-images-enabled");
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-pressed", String(active));
+      btn.setAttribute("aria-label", active ? "Turn off background images" : "Turn on background images");
+    });
+  }
+
   applyTheme(getPreferredTheme(), true);
+  setBackgroundImagesEnabled(getBackgroundImagesEnabled());
   initFigureNav();
   initNavigation();
 
@@ -497,6 +513,12 @@
     btn.addEventListener("click", function () {
       const current = root.getAttribute("data-theme");
       applyTheme(current === "dark" ? "light" : "dark");
+    });
+  });
+
+  document.querySelectorAll(".bg-toggle").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setBackgroundImagesEnabled(!root.classList.contains("bg-images-enabled"));
     });
   });
 
