@@ -197,7 +197,30 @@ html.is-scrolling body::-webkit-scrollbar-thumb {
 .bg-corner--left {
   left: 0;
   bottom: 0;
-  margin-left: -1.5rem;
+  margin-left: 1.25rem;
+  width: max-content;
+  height: clamp(160px, 17vw, 290px);
+}
+
+/* Hover limited to figure edge.*/
+.bg-corner--left .bg-corner__sizer {
+  display: block;
+  height: 100%;
+  width: auto;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bg-corner--left .bg-corner__sizer--dark {
+  display: none;
+}
+
+html[data-theme="dark"] .bg-corner--left .bg-corner__sizer--light {
+  display: none;
+}
+
+html[data-theme="dark"] .bg-corner--left .bg-corner__sizer--dark {
+  display: block;
 }
 
 .bg-corner--left .bg-corner__base {
