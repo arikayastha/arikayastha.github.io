@@ -266,15 +266,15 @@ html.bg-images-enabled .bg-corner {
 }
 
 /* Hover trigger: left corner swaps to hover asset and right corner follows */
-.bg-corner:hover .bg-corner__base,
-.bg-corner:focus-visible .bg-corner__base,
+.bg-corner--left:hover .bg-corner__base,
+.bg-corner--left:focus-visible .bg-corner__base,
 .bg-corner--left:hover + .bg-corner--right .bg-corner__base,
 .bg-corner--left:focus-visible + .bg-corner--right .bg-corner__base {
   opacity: 0;
 }
 
-.bg-corner:hover .bg-corner__hover,
-.bg-corner:focus-visible .bg-corner__hover,
+.bg-corner--left:hover .bg-corner__hover,
+.bg-corner--left:focus-visible .bg-corner__hover,
 .bg-corner--left:hover + .bg-corner--right .bg-corner__hover,
 .bg-corner--left:focus-visible + .bg-corner--right .bg-corner__hover {
   opacity: 1;
