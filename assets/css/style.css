@@ -9,6 +9,14 @@
   --theme-easing: cubic-bezier(0.4, 0, 0.2, 1);
   --page-transition-duration: 0.35s;
 
+  /* Shared vertical anchor so the sidebar lands identically in both views.
+     The top reserve keeps content clear of the hero header on short screens. */
+  --shell-width: min(960px, 94vw);
+  --view-top-reserve: calc(2.25rem + clamp(7.5rem, 13vw, 9.5rem));
+  --view-bottom-pad: 2rem;
+  --view-center-offset: calc((var(--view-top-reserve) - var(--view-bottom-pad)) / 2);
+  --sidebar-shift: clamp(2.25rem, 5.5vw, 4rem);
+
   --bg: #ffffff;
   --text: #1a1418;
   --text-muted: #5c5258;
@@ -29,6 +37,17 @@
   --text: #f0ece8;
   --text-muted: #9a9096;
   --border: #2a2a2a;
+}
+
+/* ============================================
+   LOCAL FONTS
+   ============================================ */
+@font-face {
+  font-family: "Buongiorno Rastellino";
+  src: url("../fonts/Buongiorno%20Rastellino.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* ============================================
@@ -174,13 +193,21 @@ html.is-scrolling body::-webkit-scrollbar-thumb {
   transition: opacity var(--theme-duration) var(--theme-easing);
 }
 
+/* Every corner layer is the same stretched-to-fit artwork; only the timing
+   and what drives them differs */
 .bg-corner__base,
-.bg-corner__hover {
+.bg-corner__hover,
+.bg-corner__eclipse,
+.bg-corner__moon {
   position: absolute;
   inset: 0;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+
+.bg-corner__base,
+.bg-corner__hover {
   transition: opacity var(--theme-duration) var(--theme-easing);
   will-change: opacity;
 }
@@ -235,6 +262,7 @@ html[data-theme="dark"] .bg-corner--left .bg-corner__sizer--dark {
   top: 0;
   right: 0;
   margin-right: -1.5rem;
+  pointer-events: none;
 }
 
 .bg-corner--right .bg-corner__base {
@@ -263,6 +291,47 @@ html[data-theme="dark"] .bg-corner--right .bg-corner__hover {
 
 html.bg-images-enabled .bg-corner {
   opacity: 1;
+}
+
+/* Eclipse layers, driven from script in day mode: the bolder sun blooms in
+   while the moon tracks the cursor, handing over to the hover artwork —
+   which is the finished eclipse — once the telescope is reached */
+.bg-corner__eclipse,
+.bg-corner__moon {
+  opacity: 0;
+}
+
+.bg-corner__eclipse {
+  background-image: url("../../pictures/bg-right-corner-light-eclipse-sun.png");
+  transition: opacity 0.25s var(--theme-easing);
+}
+
+.bg-corner__moon {
+  background-image: url("../../pictures/bg-right-corner-light-eclipse-moon.png");
+  transition: opacity 0.25s var(--theme-easing), transform 0.2s ease-out;
+  will-change: transform;
+}
+
+/* The two suns swap rather than cross-fade: the plain one clears out quickly
+   so they are never both sitting on screen at once */
+.bg-corner--right.is-eclipsing .bg-corner__base {
+  opacity: 0;
+  transition-duration: 0.15s;
+}
+
+.bg-corner--right.is-eclipsing .bg-corner__eclipse {
+  opacity: 1;
+}
+
+/* Sits behind the illustration and page box; the script only ever paints on
+   it in dark mode with backgrounds on, and clears it otherwise */
+.cursor-stars {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 /* Hover trigger: left corner swaps to hover asset and right corner follows */
@@ -311,7 +380,8 @@ a:hover {
    THEME TOGGLE BUTTON
    ============================================ */
 .theme-toggle,
-.bg-toggle {
+.bg-toggle,
+.view-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -328,7 +398,8 @@ a:hover {
 }
 
 .theme-toggle:hover,
-.bg-toggle:hover {
+.bg-toggle:hover,
+.view-toggle:hover {
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -391,20 +462,21 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   position: relative;
   z-index: 0;
   min-height: 100vh;
-  padding: 2.25rem 3vw 2rem;
+  padding: var(--view-top-reserve) 3vw var(--view-bottom-pad);
 }
 
 /* ============================================
    SITE HEADER (HERO IMAGE)
    ============================================ */
 
+/* Anchored to the illustration above it, so the two stay flush as the page centres */
 .site-header--hero {
   position: absolute;
-  top: 2.25rem;
+  bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
   display: block;
@@ -478,22 +550,24 @@ a:hover {
    APP SHELL & SIDEBAR CONTAINER
    ============================================ */
 .app-shell {
+  position: relative;
   display: flex;
   align-items: flex-start;
   gap: clamp(2rem, 5vw, 4rem);
-  width: min(960px, 94vw);
+  width: var(--shell-width);
   margin-top: clamp(7.5rem, 13vw, 9.5rem);
 }
 
 .view-home .app-shell,
 .view-page .app-shell {
   align-items: center;
+  margin-top: 0;
 }
 
 .view-home .app-sidebar,
 .view-page .app-sidebar {
   align-self: center;
-  transform: translateY(calc(-1 * clamp(2.25rem, 5.5vw, 4rem)));
+  transform: translateY(calc(-1 * var(--sidebar-shift)));
 }
 
 /* ============================================
@@ -611,15 +685,16 @@ body.view-home .page-view.is-fading {
    PAGE VIEW POSITIONING & ANIMATION
    ============================================ */
 
+/* The 50% cancels out the centred column, leaving the box 4rem below the
+   top of the screen — the same start as the simple view */
 .view-page .page-view,
 .page-view.is-fading {
   position: absolute;
-  top: 0;
+  top: calc(50% + 4rem - 50vh - var(--view-center-offset));
   left: 0;
   right: 0;
   z-index: 1;
   max-height: calc(100vh - 8rem);
-  transform: translateY(calc(-1 * clamp(5.5rem, 9.8vw, 7.5rem)));
 }
 
 .view-page .page-view {
@@ -992,11 +1067,12 @@ body.view-home .page-view.is-fading {
 /* --- Mobile --- */
 @media (max-width: 768px) {
   .app {
+    justify-content: flex-start;
     padding: 1.25rem 4vw 2rem;
   }
 
   .site-header--hero {
-    top: 1.25rem;
+    bottom: calc(100% + 0.75rem);
     width: min(76%, 24rem);
     max-width: 24rem;
     z-index: 1;
@@ -1015,6 +1091,11 @@ body.view-home .page-view.is-fading {
     align-items: center;
     margin-top: clamp(6.25rem, 16vw, 7.5rem);
     gap: 2rem;
+  }
+
+  .view-home .app-shell,
+  .view-page .app-shell {
+    margin-top: clamp(6.25rem, 16vw, 7.5rem);
   }
 
   .app-sidebar {
@@ -1095,6 +1176,7 @@ body.view-home .page-view.is-fading {
 
   .view-page .page-view,
   .page-view.is-fading {
+    top: 0;
     transform: translateY(-2rem);
   }
 
@@ -1106,5 +1188,271 @@ body.view-home .page-view.is-fading {
 
   .figure-zones {
     display: none;
+  }
+}
+
+/* ============================================
+   SIMPLE VIEW - ALL PAGES ON ONE SCROLL
+   ============================================ */
+.view-toggle svg {
+  width: 17px;
+  height: 17px;
+}
+
+.view-toggle.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.scroll-view {
+  display: none;
+}
+
+body.view-scroll .app,
+body.view-scroll .bg-corners {
+  display: none;
+}
+
+body.view-scroll .scroll-view {
+  display: block;
+}
+
+.scroll-shell {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(2rem, 5vw, 4rem);
+  width: var(--shell-width);
+  margin: 0 auto;
+}
+
+/* Mirrors the illustrated sidebar so the two views line up exactly */
+.scroll-sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 12rem;
+  height: 100vh;
+}
+
+.scroll-sidebar-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transform: translateY(calc(var(--view-center-offset) - var(--sidebar-shift)));
+}
+
+.scroll-logo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 11.5rem;
+  transform: translate(-50%, calc(-100% - 0.15rem));
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.scroll-nav-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.scroll-logo-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.scroll-logo-img--dark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity var(--theme-duration) var(--theme-easing);
+}
+
+[data-theme="dark"] .scroll-logo-img--dark {
+  opacity: 1;
+}
+
+.scroll-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: fit-content;
+  max-width: 100%;
+  text-align: left;
+}
+
+.scroll-nav-item {
+  position: relative;
+  display: block;
+  padding: 0.2rem 0 0.2rem 1rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  opacity: 0.45;
+  border-left: 2px solid transparent;
+  transition: color var(--page-transition-duration) var(--theme-easing),
+              opacity var(--page-transition-duration) var(--theme-easing);
+}
+
+.scroll-nav-item:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.scroll-nav-item.is-current {
+  color: #000000;
+  opacity: 1;
+}
+
+[data-theme="dark"] .scroll-nav-item.is-current {
+  color: #ffffff;
+}
+
+.scroll-controls {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  transform: translateX(calc((1rem + 2px) / 2));
+}
+
+.scroll-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.scroll-section {
+  display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding-top: 4rem;
+}
+
+.scroll-page {
+  width: 100%;
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  text-align: left;
+}
+
+/* Hidden until the margin beside the shell is wide enough to hold it */
+.scroll-tagline {
+  display: none;
+}
+
+@media (min-width: 1400px) {
+  .scroll-tagline {
+    display: block;
+    position: fixed;
+    /* Rotated, so the width is the run of the line: top edge and length both
+       match the page box, and the text wraps rather than running off-screen */
+    top: 4rem;
+    left: calc(50% + var(--shell-width) / 2 + 1.5rem);
+    width: calc(100vh - 8rem);
+    margin: 0;
+    /* The translate pulls the box back clear of the column it rotated across */
+    transform-origin: left top;
+    transform: rotate(90deg) translateY(-100%);
+    text-align: center;
+    font-family: "Buongiorno Rastellino", "Josefin Sans", system-ui, sans-serif;
+    font-size: 5rem;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    color: var(--text-muted);
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-shell {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding-top: 1.25rem;
+  }
+
+  .scroll-sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+
+  .scroll-sidebar-inner {
+    align-items: center;
+    gap: 1rem;
+    transform: none;
+  }
+
+  .scroll-logo {
+    position: static;
+    width: min(11.5rem, 60%);
+    transform: none;
+  }
+
+  .scroll-nav-wrap {
+    width: 100%;
+  }
+
+  .scroll-controls {
+    margin-top: 0.75rem;
+    transform: none;
+  }
+
+  .scroll-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 0.75rem;
+    text-align: center;
+  }
+
+  .scroll-nav-item {
+    padding: 0.2rem 0.35rem 0.25rem;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+  }
+
+  .scroll-nav-item.is-current {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  [data-theme="dark"] .scroll-nav-item.is-current {
+    color: var(--accent);
+  }
+
+  .scroll-section {
+    display: block;
+    min-height: 0;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .scroll-section:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .scroll-page {
+    max-height: none;
+    overflow-y: visible;
+    padding-right: 0;
   }
 }
